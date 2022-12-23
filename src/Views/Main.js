@@ -8,36 +8,47 @@ const Main = () => {
   const [disabledTextArea, setDisabledTextArea] = useState("");
   const [voices, setVoices] = useState([]);
   const [selectedVoice, setSelectedVoice] = useState(null);
-  const [selectedVoiceId, setSelectedVoiceId] = useState(null);
+  const speedRef = useRef(null);
 
   useEffect(() => {
     setVoices(window.speechSynthesis.getVoices());
   }, []);
 
+  setInterval(() => {
+    if (!speechSynthesis.current.speaking) {
+      setDisabledTextArea("");
+    }
+  }, 1000);
+
   const handlePlay = () => {
     const text = textArea.current.value;
+    let utterance;
+
     if (speechSynthesis.current.paused && speechSynthesis.current.speaking) {
       return speechSynthesis.current.resume();
     }
     if (selectedVoice) {
       const msg = new SpeechSynthesisUtterance(text);
+      msg.rate = speedRef.current.value || 1;
+      console.log(msg.rate);
       msg.voice = window.speechSynthesis
         .getVoices()
         .find((voice) => voice.name === selectedVoice);
       window.speechSynthesis.speak(msg);
+    } else {
+      utterance = new SpeechSynthesisUtterance(text);
+      utterance.rate = speedRef.current.value || 1;
+      console.log(utterance.rate);
+      speechSynthesis.current.speak(utterance);
     }
 
     setDisabledTextArea("disabled");
-    const utterance = new SpeechSynthesisUtterance(text);
-    speechSynthesis.current.speak(utterance);
-
-    utterance.addEventListener("end", () => {
-      setDisabledTextArea("");
-    });
   };
 
   const handleStop = () => {
+    speechSynthesis.current.resume();
     speechSynthesis.current.cancel();
+    setDisabledTextArea("");
   };
 
   const handlePause = () => {
@@ -45,9 +56,9 @@ const Main = () => {
   };
 
   const handleChangeVoice = (voice) => {
-    console.log(voice.name);
     setSelectedVoice(voice.name);
   };
+
   return (
     <main className="Main">
       <div>
@@ -72,20 +83,18 @@ const Main = () => {
             </button>
           </section>
         </section>
-        <section className="buttons-section">
+        <section className="buttons-section-two">
           <p>Want to talk faster? </p>
-          <input type="number" min=".5" max="3" step=".5" />
+          <input type="number" min=".5" max="3" step=".5" ref={speedRef} />
         </section>
       </div>
       <aside>
         <h3>Don't Like current Voice? </h3>
         {voices.map((voice) => (
           <span
-            id={selectedVoiceId}
             key={uuidv4()}
             onClick={() => {
               handleChangeVoice(voice);
-              setSelectedVoiceId("selected");
             }}
           >
             {voice.name}

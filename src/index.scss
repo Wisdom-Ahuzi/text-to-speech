@@ -185,6 +185,26 @@
         }
       }
     }
+    .buttons-section-two {
+      width: 100%;
+      @include utils.flex-display();
+      gap: 40px;
+      p {
+        font-size: 20px;
+        color: #17172dad;
+      }
+      input {
+        height: 25px;
+        text-align: center;
+        width: 60px;
+        border: unset;
+        border-radius: 5px;
+        box-shadow: 2px 1px 9px 1px #aaaab6ad;
+        &:focus {
+          outline: none;
+        }
+      }
+    }
   }
 
   aside {
@@ -205,9 +225,9 @@
       color: utils.$text-primary;
     }
 
-    // #selected {
-    // background-color: slategrey;
-    // }
+    .selected {
+      background-color: slategrey;
+    }
 
     span {
       color: utils.$text-primary;
