@@ -51,7 +51,6 @@ const LandingPage = () => {
                   onClick={handleFocus}
                   placeholder="Enter Your Name..."
                   onChange={(e) => {
-                    // setName(e.target.value);
                     setvalues((preValues) => {
                       return { ...preValues, name: e.target.value };
                     });
