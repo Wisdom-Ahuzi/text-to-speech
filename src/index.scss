@@ -3,7 +3,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  // overflow-x: hidden;
 }
 
 .App {
@@ -11,6 +10,7 @@
   height: 100vh;
 }
 
+//Landing
 .LandingPage {
   width: inherit;
   height: inherit;
@@ -118,8 +118,8 @@
   div {
     width: 40%;
     height: 500px;
-    margin-top: 120px;
-    @include utils.flex-display($direction: column, $justify: space-evenly);
+    margin-top: 130px;
+    @include utils.flex-display($direction: column, $justify: space-around);
 
     #section-one {
       @include utils.flex-display($direction: column, $justify: unset);
@@ -187,8 +187,8 @@
     }
     .buttons-section-two {
       width: 100%;
-      @include utils.flex-display();
-      gap: 40px;
+      @include utils.flex-display($direction: column);
+      gap: 10px;
       p {
         font-size: 20px;
         color: #17172dad;
@@ -210,7 +210,7 @@
   aside {
     background-color: rgba(245, 239, 230, 0.767);
     box-shadow: 2px 1px 9px 1px #aaaab6ad;
-    width: 250px;
+    width: 230px;
     height: 100vh;
     position: fixed;
     right: 0;
@@ -219,8 +219,12 @@
     gap: 25px;
     transition: all 0.5s ease;
     h3 {
-      padding-top: 20px;
+      padding: 10px;
       text-align: right;
+      top: 0;
+      background-color: rgb(245, 239, 230);
+      z-index: 2;
+      position: sticky;
       width: 100%;
       color: utils.$text-primary;
     }
@@ -240,6 +244,145 @@
       transition: all 0.5s ease;
       &:hover {
         background-color: rgba(232, 222, 208, 0.767);
+      }
+    }
+  }
+  span {
+    left: 0;
+    bottom: 0;
+    position: relative;
+    cursor: pointer;
+    img {
+      right: 6px;
+      bottom: 10px;
+      position: fixed;
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
+
+.collapse {
+  transition: 0.5s ease !important;
+  transform: translateX(300px) !important;
+}
+
+//Responsive View
+@media screen and (max-width: 768px) {
+  .LandingPage {
+    @include utils.flex-display(
+      $align: unset,
+      $justify: unset,
+      $direction: column-reverse
+    );
+    section:nth-child(1) {
+      width: 100%;
+      h1 {
+        width: 100%;
+        text-align: center;
+        display: unset !important;
+        -webkit-line-clamp: unset !important;
+        -webkit-box-orient: unset !important;
+        overflow: unset !important;
+        line-height: unset !important;
+        letter-spacing: 8px !important;
+        font-size: 2rem !important;
+      }
+    }
+  }
+  Main {
+    div {
+      #section-one {
+        h1 {
+          font-size: 1.6rem !important;
+        }
+
+        h4 {
+          font-size: 11px !important;
+        }
+      }
+
+      #section-two {
+        textarea {
+          align-self: center !important;
+          width: 190% !important;
+          font-size: 15px !important;
+        }
+
+        .buttons-section {
+          justify-content: space-between !important;
+          button {
+            width: 45px !important;
+            height: 45px !important;
+          }
+        }
+      }
+      .buttons-section-two {
+        p {
+          font-size: 17px !important;
+        }
+        input {
+          height: 22px !important;
+          width: 65px !important;
+        }
+      }
+    }
+    aside {
+      width: 190px !important;
+      gap: 10px !important;
+      h3 {
+        font-size: 15px !important;
+      }
+
+      .selected {
+        background-color: slategrey;
+      }
+
+      span {
+        font-size: 14px !important;
+        padding: 2px !important;
+        padding-right: 6px !important;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 425px) {
+  Main {
+    div {
+      #section-one {
+        h1 {
+          width: 150% !important;
+        }
+
+        h4 {
+          width: 150% !important;
+        }
+      }
+
+      #section-two {
+        textarea {
+          width: 210% !important;
+        }
+
+        .buttons-section {
+          width: 155% !important;
+          align-self: center !important;
+          button {
+            width: 35px !important;
+            height: 35px !important;
+          }
+        }
+      }
+      .buttons-section-two {
+        width: 200% !important;
+        p {
+          font-size: 17px !important;
+        }
+        input {
+          height: 22px !important;
+          width: 65px !important;
+        }
       }
     }
   }

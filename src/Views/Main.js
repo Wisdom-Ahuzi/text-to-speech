@@ -9,9 +9,16 @@ const Main = () => {
   const [voices, setVoices] = useState([]);
   const [selectedVoice, setSelectedVoice] = useState(null);
   const speedRef = useRef(null);
-
+  const sideBar = useRef(null);
   useEffect(() => {
     setVoices(window.speechSynthesis.getVoices());
+  }, []);
+
+  useEffect(() => {
+    const talk = new SpeechSynthesisUtterance(
+      "Hello" + localStorage.getItem("name")
+    );
+    speechSynthesis.current.speak(talk);
   }, []);
 
   setInterval(() => {
@@ -59,6 +66,17 @@ const Main = () => {
     setSelectedVoice(voice.name);
   };
 
+  const handleCollapse = () => {
+    console.log(sideBar.current);
+    if (sideBar.current.className === "collapse") {
+      console.log("Sidebar is closed");
+      sideBar.current.classList.remove("collapse");
+    } else {
+      sideBar.current.classList.add("collapse");
+      console.log("Sidebar is opened");
+    }
+  };
+
   return (
     <main className="Main">
       <div>
@@ -69,15 +87,15 @@ const Main = () => {
         <section id="section-two">
           <textarea ref={textArea} id={disabledTextArea}></textarea>
           <section className="buttons-section">
-            <button onClick={handlePlay}>
+            <button onClick={handlePlay} title="Play">
               {" "}
               <FontAwesomeIcon icon={faPlay} size="lg" />
             </button>
-            <button onClick={handlePause}>
+            <button onClick={handlePause} title="Pause">
               {" "}
               <FontAwesomeIcon icon={faPause} size="lg" />
             </button>
-            <button onClick={handleStop}>
+            <button onClick={handleStop} title="Stop">
               {" "}
               <FontAwesomeIcon icon={faStop} size="lg" />
             </button>
@@ -85,10 +103,17 @@ const Main = () => {
         </section>
         <section className="buttons-section-two">
           <p>Want to talk faster? </p>
-          <input type="number" min=".5" max="3" step=".5" ref={speedRef} />
+          <input
+            type="number"
+            min=".5"
+            max="3"
+            step=".5"
+            ref={speedRef}
+            // placeholder={speedRef.current.value}
+          />
         </section>
       </div>
-      <aside>
+      <aside ref={sideBar}>
         <h3>Don't Like current Voice? </h3>
         {voices.map((voice) => (
           <span
@@ -101,6 +126,9 @@ const Main = () => {
           </span>
         ))}
       </aside>
+      <span onClick={handleCollapse}>
+        <img src={require("../assets/images/textToSpeechLogo.jpeg")} alt="" />
+      </span>
     </main>
   );
 };
