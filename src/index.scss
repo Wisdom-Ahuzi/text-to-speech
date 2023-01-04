@@ -154,6 +154,7 @@
         color: utils.$text-primary;
         padding-left: 5px;
         border-radius: 3px;
+        position: relative;
         &:focus {
           border: none;
           outline: none;
@@ -260,6 +261,9 @@
       height: 30px;
     }
   }
+  .coloured {
+    background-color: rgb(230, 239, 178) !important;
+  }
 }
 
 .collapse {
@@ -268,6 +272,22 @@
 }
 
 //Responsive View
+@media screen and (max-width: 1240px) {
+  .LandingPage section:nth-child(1) .left-card-container-inner > div h1 {
+    font-size: 1.8rem;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .LandingPage section:nth-child(1) .left-card-container-inner > div h1 {
+    font-size: 1.5rem;
+  }
+}
+@media screen and (max-width: 924px) {
+  .LandingPage section:nth-child(1) .left-card-container-inner > div h1 {
+    font-size: 1.1rem;
+  }
+}
+
 @media screen and (max-width: 768px) {
   .LandingPage {
     @include utils.flex-display(
@@ -279,14 +299,17 @@
       width: 100%;
       h1 {
         width: 100%;
-        text-align: center;
+        text-align: start;
         display: unset !important;
         -webkit-line-clamp: unset !important;
         -webkit-box-orient: unset !important;
         overflow: unset !important;
-        line-height: unset !important;
+        line-height: 50px !important;
         letter-spacing: 8px !important;
         font-size: 2rem !important;
+      }
+      p {
+        width: auto !important;
       }
     }
   }
@@ -343,6 +366,52 @@
         padding: 2px !important;
         padding-right: 6px !important;
       }
+    }
+  }
+}
+
+@media screen and (max-width: 568px) {
+  .LandingPage {
+    width: inherit;
+    height: inherit;
+    @include utils.flex-display($align: center, $justify: unset);
+    gap: 0px;
+    width: 100% !important;
+    section:nth-child(1) {
+      width: 60% !important;
+      justify-content: center !important;
+      .left-card-container-inner {
+        padding-left: unset;
+      }
+      h1 {
+        line-height: 40px !important;
+        letter-spacing: 8px !important;
+        font-size: 1.6rem !important;
+      }
+      p {
+        display: unset !important;
+        -webkit-line-clamp: 4 !important;
+        -webkit-box-orient: unset !important;
+        overflow: unset !important;
+        width: auto !important;
+        font-size: 13px !important;
+      }
+      .name-field {
+        input {
+          height: 45px !important;
+          &::placeholder {
+            font-size: 11px !important;
+          }
+        }
+        .icon {
+          top: 12px !important;
+          width: 18px !important;
+          height: 18px !important;
+        }
+      }
+    }
+    section:nth-child(2) {
+      display: none;
     }
   }
 }

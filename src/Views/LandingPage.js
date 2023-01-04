@@ -10,7 +10,6 @@ const LandingPage = () => {
     error: "hide",
     focus: "",
   });
-
   const handleSubmittedName = (e) => {
     e.preventDefault();
     if (values.name === "") {
@@ -44,6 +43,10 @@ const LandingPage = () => {
               store. Add your email below to stay up-to-date with announcements
               and our launch deals.
             </p>
+            <div>
+              <small> Activate speech synthesis to continue</small>
+              <input type="checkbox" />
+            </div>
             <form onSubmit={(e) => handleSubmittedName(e)}>
               <div className="name-field">
                 <input

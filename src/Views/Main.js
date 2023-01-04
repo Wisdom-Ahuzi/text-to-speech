@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faPause, faStop } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlay,
+  faPause,
+  faStop,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
 import { v4 as uuidv4 } from "uuid";
 const Main = () => {
   const speechSynthesis = useRef(window.speechSynthesis);
@@ -14,12 +19,12 @@ const Main = () => {
     setVoices(window.speechSynthesis.getVoices());
   }, []);
 
-  useEffect(() => {
-    const talk = new SpeechSynthesisUtterance(
-      "Hello" + localStorage.getItem("name")
-    );
-    speechSynthesis.current.speak(talk);
-  }, []);
+  // useEffect(() => {
+  //   const talk = new SpeechSynthesisUtterance(
+  //     "Hello" + localStorage.getItem("name")
+  //   );
+  //   speechSynthesis.current.speak(talk);
+  // }, []);
 
   setInterval(() => {
     if (!speechSynthesis.current.speaking) {
@@ -62,21 +67,22 @@ const Main = () => {
     speechSynthesis.current.pause();
   };
 
-  const handleChangeVoice = (voice) => {
+  const handleChangeVoice = (voice, e) => {
     setSelectedVoice(voice.name);
+    e.target.classList.toggle("coloured");
   };
 
   const handleCollapse = () => {
-    console.log(sideBar.current);
     if (sideBar.current.className === "collapse") {
-      console.log("Sidebar is closed");
       sideBar.current.classList.remove("collapse");
     } else {
       sideBar.current.classList.add("collapse");
-      console.log("Sidebar is opened");
     }
   };
 
+  const handleTrash = () => {
+    textArea.current.value = "";
+  };
   return (
     <main className="Main">
       <div>
@@ -99,6 +105,9 @@ const Main = () => {
               {" "}
               <FontAwesomeIcon icon={faStop} size="lg" />
             </button>
+            <button onClick={handleTrash} id={disabledTextArea}>
+              <FontAwesomeIcon icon={faTrash} title="Trash" id="trash" />
+            </button>
           </section>
         </section>
         <section className="buttons-section-two">
@@ -118,8 +127,8 @@ const Main = () => {
         {voices.map((voice) => (
           <span
             key={uuidv4()}
-            onClick={() => {
-              handleChangeVoice(voice);
+            onClick={(e) => {
+              handleChangeVoice(voice, e);
             }}
           >
             {voice.name}
