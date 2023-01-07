@@ -44,8 +44,7 @@ const LandingPage = () => {
               and our launch deals.
             </p>
             <div>
-              <small> Activate speech synthesis to continue</small>
-              <input type="checkbox" />
+              <small>Works best on Google chrome.</small>
             </div>
             <form onSubmit={(e) => handleSubmittedName(e)}>
               <div className="name-field">

@@ -19,13 +19,6 @@ const Main = () => {
     setVoices(window.speechSynthesis.getVoices());
   }, []);
 
-  // useEffect(() => {
-  //   const talk = new SpeechSynthesisUtterance(
-  //     "Hello" + localStorage.getItem("name")
-  //   );
-  //   speechSynthesis.current.speak(talk);
-  // }, []);
-
   setInterval(() => {
     if (!speechSynthesis.current.speaking) {
       setDisabledTextArea("");
